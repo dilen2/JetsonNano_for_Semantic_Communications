@@ -2,6 +2,7 @@
 
 This repository provides an end-to-end deployment and evaluation framework for lightweight semantic communication systems on NVIDIA Jetson Nano edge devices.
 The implementation focuses on validating the engineering feasibility, runtime stability, and inference latency of DeepJSCC-based models under resource-constrained edge environments.
+<img width="1015" height="706" alt="image" src="https://github.com/user-attachments/assets/5925fe2b-8cd3-4f05-ad41-edeabe326969" />
 
 1. Overview
 
