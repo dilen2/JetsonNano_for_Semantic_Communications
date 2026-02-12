@@ -1,4 +1,4 @@
-# Semantic-Communication-Deployment-on-Jetson-Nano
+# SemCom-JNano
 
 <img width="1015" height="223" alt="image" src="https://github.com/user-attachments/assets/068f4d86-a22d-49f1-93ad-76acfd2570d8" />
 
