@@ -1,11 +1,10 @@
 # JetsonNano_for_Semantic_Communications
 
-<img width="1015" height="223" alt="image" src="https://github.com/user-attachments/assets/068f4d86-a22d-49f1-93ad-76acfd2570d8" />
+<img width="1015" height="706" alt="image" src="https://github.com/user-attachments/assets/5925fe2b-8cd3-4f05-ad41-edeabe326969" />
 
 本仓库提供了一个端到端部署与评估框架，用于在 NVIDIA Jetson Nano 边缘设备上部署轻量级语义通信系统。  
 该实现重点验证基于 DeepJSCC 的模型在资源受限边缘环境中的工程可行性、运行时稳定性与推理延迟。
 
-<img width="1015" height="706" alt="image" src="https://github.com/user-attachments/assets/5925fe2b-8cd3-4f05-ad41-edeabe326969" />
 
 ## 1. 概述
 
