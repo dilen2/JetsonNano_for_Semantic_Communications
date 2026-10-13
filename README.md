@@ -1,117 +1,52 @@
-# SemCom-JNano
+# JetsonNano_for_Semantic_Communications
 
 <img width="1015" height="223" alt="image" src="https://github.com/user-attachments/assets/068f4d86-a22d-49f1-93ad-76acfd2570d8" />
 
-This repository provides an end-to-end deployment and evaluation framework for lightweight semantic communication systems on NVIDIA Jetson Nano edge devices.
-The implementation focuses on validating the engineering feasibility, runtime stability, and inference latency of DeepJSCC-based models under resource-constrained edge environments.
+本仓库提供了一个端到端部署与评估框架，用于在 NVIDIA Jetson Nano 边缘设备上部署轻量级语义通信系统。  
+该实现重点验证基于 DeepJSCC 的模型在资源受限边缘环境中的工程可行性、运行时稳定性与推理延迟。
+
 <img width="1015" height="706" alt="image" src="https://github.com/user-attachments/assets/5925fe2b-8cd3-4f05-ad41-edeabe326969" />
 
-1. Overview
+## 1. 概述
 
-We deploy and evaluate the following three semantic communication systems:
+我们部署并评估 DeepJSCC 语义通信系统。
 
-DeepJSCC
+系统部署在两台 NVIDIA Jetson Nano 设备上，分别作为发射端（Tx）和接收端（Rx），构成真实的端到端语义通信设置。
 
-DeepJSCC + CPAM
+## 2. 硬件平台
 
-DeepJSCC + CPAM-l (lightweight variant)
+每台 Jetson Nano 设备配置如下：
 
-The systems are deployed on two NVIDIA Jetson Nano devices, acting as the transmitter (Tx) and receiver (Rx) respectively, forming a real end-to-end semantic communication setup.
+- GPU：NVIDIA Maxwell 架构
+- CPU：四核 ARM Cortex-A57
+- 内存：4 GB LPDDR4
+- 操作系统：Ubuntu（JetPack 环境）
 
-Unlike offline simulations on high-performance GPUs, this repository emphasizes real-world edge deployment, where memory capacity, computing power, and energy efficiency are strictly limited.
+## 3. 系统架构
 
-2. Hardware Platform
+### 3.1 端到端语义通信
 
-Each Jetson Nano device is configured as follows:
+系统由两个边缘设备组成：
 
-GPU: NVIDIA Maxwell architecture
+#### 发射端（Tx）
 
-CPU: Quad-core ARM Cortex-A57
+- 执行语义编码
+- 模拟信道噪声
+- 发送受信道噪声污染的语义潜在表示
 
-Memory: 4 GB LPDDR4
+#### 接收端（Rx）
 
-OS: Ubuntu (JetPack environment)
+- 接收语义潜在特征
+- 执行语义解码与图像重建
 
-This hardware configuration represents a typical edge communication node, making it suitable for evaluating lightweight semantic communication models in practical scenarios.
+仅传输低维语义潜在表示。  
+原始图像从不发送，从而显著降低通信开销和带宽消耗。
 
-3. System Architecture
-3.1 End-to-End Semantic Communication
+### 3.2 通信方式
 
-The system consists of two edge devices:
+- 传输协议：TCP Socket（点对点）
+- 网络设置：无线局域网（同一本地网络）
 
-Transmitter (Tx)
+## 4. 结论
 
-Performs semantic encoding
-
-Simulates channel noise
-
-Sends corrupted semantic latent representations
-
-Receiver (Rx)
-
-Receives semantic latent features
-
-Performs semantic decoding and image reconstruction
-
-Only low-dimensional semantic latent representations are transmitted.
-Raw images are never sent, significantly reducing communication overhead and bandwidth consumption.
-
-3.2 Communication Method
-
-Transmission protocol: TCP Socket (point-to-point)
-
-Network setup: Wireless LAN (same local network)
-
-Measured bandwidth:
-
-Download: ~12.33 Mbps
-
-Upload: ~36.75 Mbps
-
-Experimental results show that, under the tested conditions, network transmission has minimal impact on overall system performance, and the dominant latency comes from model inference.
-
-4. Deployment Strategy on Jetson Nano
-
-Due to the 4 GB memory limitation, the following deployment strategies are adopted:
-
-Inference-only execution
-
-Gradient computation is disabled (torch.no_grad())
-
-Frame-by-frame decoding
-
-Avoids peak memory usage caused by batch processing
-
-Lightweight model design
-
-CPAM-l further reduces inference overhead while preserving performance gains
-
-Under these constraints, all three systems run stably without memory overflow or inference interruption, demonstrating the resource-controllable nature of the CPAM modules.
-
-5. Latency Measurement
-
-To evaluate real-time performance, inference latency is measured as follows:
-
-Measurement granularity: Per-frame decoding
-
-Number of frames: 100 consecutive images
-
-Initialization handling:
-
-The first frame is excluded to avoid cache and loading overhead
-
-Final metric: Average decoding latency per frame
-
-This setup provides a fair and reproducible latency evaluation for edge semantic communication systems.
-
-6. Key Findings
-
-CPAM and CPAM-l can be successfully deployed on memory-constrained edge devices
-
-CPAM-l achieves a better trade-off between performance gain and inference latency
-
-The system demonstrates stable operation under real wireless network conditions
-
-Results validate that the proposed models are not only effective in simulation but also practically deployable in real edge scenarios
-
-This repository demonstrates that semantic communication models can not only work well in simulations, but can also run stably and efficiently on real edge devices.        
+本仓库表明，语义通信模型不仅在仿真中表现良好，还能在真实边缘设备上稳定、高效地运行。
